@@ -1,5 +1,6 @@
 package com.example.tetris
 
+import android.app.Dialog
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,6 +11,9 @@ import android.widget.GridView
 import com.example.tetris.piece.*
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlin.collections.ArrayList
+import android.support.v7.app.AlertDialog
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.alert_dialog.*
 
 open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener{
 
@@ -47,11 +51,16 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        // Hide the status bar.
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        actionBar?.hide()
+//        // Hide the status bar.
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+//        // Remember that you should never show the action bar if the
+//        // status bar is hidden, so hide that too if necessary.
+//        actionBar?.hide()
+
+        val intent = intent
+        val imageUrl = intent.getStringExtra("imageUrl")
+
+        Glide.with(this@GameActivity).load(imageUrl).into(profile_pic)
 
         start.setOnClickListener(this)
 
@@ -78,8 +87,11 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                 start.performClick()
             }
         }.start()
+    }
 
-
+    override fun onPause() {
+        super.onPause()
+        pause.performClick()
     }
 
     override fun onLongClick(v: View?): Boolean {
@@ -96,31 +108,20 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                 moveRight()
             }
         }
+        else if (v == down){
+            bottom = false
+            while (!bottom){
+                moveDown()
+            }
+        }
         return true
     }
-
-    override fun onPause() {
-        super.onPause()
-        pause.performClick()
-    }
-
-//    override fun onResume() {
-//        super.onResume()
-//
-//        if(mediaPlayer!!.isPlaying){
-//            mediaPlayer!!.start()
-//        }
-//        if (playing){
-//            resumeGame()
-//        }
-//
-//    }
 
     override fun onClick(v: View?) {
 
         if (v == start) {
 
-            enableButtons()
+            initializeButtons()
 
             mediaPlayer!!.start()
 
@@ -140,6 +141,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                 mediaPlayer!!.pause()
                 pause.visibility = View.GONE
                 resume.visibility = View.VISIBLE
+                buttonClickability(false)
             }
         }
 
@@ -150,6 +152,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             }
             pause.visibility = View.VISIBLE
             resume.visibility = View.GONE
+            buttonClickability(true)
         }
 
         if (v == rotate) {
@@ -176,11 +179,13 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         }
 
         if (v == down){
-            // initialization
-            bottom = false
-            // sending block to bottom
-            while (!bottom){
-                moveDown()
+            val check = mainBlock.checkDown(pieceList)
+            if (check) {
+                mainBlock.removeBlock(pieceList)
+                mainBlock.moveDown(pieceList)
+
+                val mAdapter = CubeAdapter(this, pieceList)
+                gridView!!.adapter = mAdapter
             }
         }
 
@@ -194,6 +199,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             volumeOff.visibility = View.VISIBLE
             volumeOn.visibility = View.GONE
         }
+
     }
 
 
@@ -255,7 +261,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     private fun selectBlock(next: Int) : Piece {
 
-        return when (next) {
+        return when (4) {
             1 -> PieceT(pieceList, 4)
             2 -> PieceO(pieceList, 4)
             3 -> PieceL(pieceList, 4)
@@ -415,6 +421,18 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         } else {
             100 * fullRows
         }
+        if (point > 0){
+
+//            mediaPlayer!!.pause()
+//            val lineCompletePlayer = MediaPlayer.create(this, R.raw.tetris)
+//            lineCompletePlayer.start()
+//            lineCompletePlayer.isLooping = false
+
+            val scaleUpAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.scale_up_animation)
+            points.text = point.toString()
+            addpoints.visibility = View.VISIBLE
+            addpoints.animate().withStartAction { addpoints.startAnimation(scaleUpAnimation) }.alpha(1f).withEndAction{addpoints.visibility = View.GONE}
+        }
         score += point
         totalScore.text = score.toString()
     }
@@ -435,22 +453,48 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         gridView!!.adapter = mAdapter
     }
 
-    private fun enableButtons(){
+    private fun initializeButtons(){
         left.setOnClickListener(this)
         left.setOnLongClickListener(this)
         right.setOnClickListener(this)
         right.setOnLongClickListener(this)
-        rotate.setOnClickListener(this)
         down.setOnClickListener(this)
+        down.setOnLongClickListener(this)
+        rotate.setOnClickListener(this)
         pause.setOnClickListener(this)
         resume.setOnClickListener(this)
         volumeOff.setOnClickListener(this)
         volumeOn.setOnClickListener(this)
     }
 
+    private fun buttonClickability(bool: Boolean){
+        left.isEnabled = bool
+        right.isEnabled = bool
+        down.isEnabled = bool
+        rotate.isEnabled = bool
+        volumeOff.isEnabled = bool
+        volumeOn.isEnabled = bool
+    }
+
     override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+        pause.performClick()
+
+        val dialog = Dialog(this@GameActivity)
+        dialog.setContentView(R.layout.alert_dialog)
+        dialog.show()
+
+        dialog.dialog_cancel.setOnClickListener {
+            resume.performClick()
+            dialog.dismiss()
+        }
+
+        dialog.dialog_ok.setOnClickListener {
+            super.onBackPressed()
+            dialog.dismiss()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+
     }
 
     private fun checkingScore(){

@@ -14,4 +14,6 @@
     <color name="purple">#9B51FF</color>
     <color name="red">#FF4949</color>
     <color name="blueGray">#AEC1D1</color>
+    <color name="deepRed">#FF0909</color>
+    <color name="transparent">#80AEC1D1</color>
 </resources>
