@@ -54,7 +54,7 @@
             android:id="@+id/profile_name"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="NAME"
+            android:text=""
             android:gravity="center"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="160dp"

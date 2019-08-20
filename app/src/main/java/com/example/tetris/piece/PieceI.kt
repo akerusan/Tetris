@@ -34,20 +34,32 @@ class PieceI : Piece {
         this.cube6 = axe + 20
 
         if (this.rotation == 0 || this.rotation == 2){
-            pieceList[cube4] = Piece()
-            pieceList[cube5] = Piece()
-            pieceList[cube6] = Piece()
-            pieceList[cube1] = PieceI(cube1)
-            pieceList[cube2] = PieceI(cube2)
-            pieceList[cube3] = PieceI(cube3)
+
+            if( pieceList[cube1].block == "" &&
+                pieceList[cube2].block == "" &&
+                pieceList[cube3].block == "" )
+            {
+                pieceList[cube4] = Piece()
+                pieceList[cube5] = Piece()
+                pieceList[cube6] = Piece()
+                pieceList[cube1] = PieceI(cube1)
+                pieceList[cube2] = PieceI(cube2)
+                pieceList[cube3] = PieceI(cube3)
+            }
         }
         if (this.rotation == 1 || this.rotation == 3){
-            pieceList[cube1] = Piece()
-            pieceList[cube2] = Piece()
-            pieceList[cube3] = Piece()
-            pieceList[cube4] = PieceI(cube4)
-            pieceList[cube5] = PieceI(cube5)
-            pieceList[cube6] = PieceI(cube6)
+
+            if( pieceList[cube4].block == "" &&
+                pieceList[cube5].block == "" &&
+                pieceList[cube6].block == "" )
+            {
+                pieceList[cube1] = Piece()
+                pieceList[cube2] = Piece()
+                pieceList[cube3] = Piece()
+                pieceList[cube4] = PieceI(cube4)
+                pieceList[cube5] = PieceI(cube5)
+                pieceList[cube6] = PieceI(cube6)
+            }
         }
     }
 

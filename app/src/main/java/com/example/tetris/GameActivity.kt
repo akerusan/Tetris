@@ -11,9 +11,9 @@ import android.widget.GridView
 import com.example.tetris.piece.*
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlin.collections.ArrayList
-import android.support.v7.app.AlertDialog
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.alert_dialog.*
+import android.graphics.drawable.ColorDrawable
 
 open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener{
 
@@ -261,7 +261,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     private fun selectBlock(next: Int) : Piece {
 
-        return when (4) {
+        return when (next) {
             1 -> PieceT(pieceList, 4)
             2 -> PieceO(pieceList, 4)
             3 -> PieceL(pieceList, 4)
@@ -483,6 +483,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         val dialog = Dialog(this@GameActivity)
         dialog.setContentView(R.layout.alert_dialog)
         dialog.show()
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
         dialog.dialog_cancel.setOnClickListener {
             resume.performClick()
