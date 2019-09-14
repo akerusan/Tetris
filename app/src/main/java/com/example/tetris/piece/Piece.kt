@@ -19,7 +19,9 @@ open class Piece {
     open var cube7 = 0
     open var cube8 = 0
 
-    open fun rotation(pieceList: ArrayList<Piece>){}
+    open fun rotation(pieceList: ArrayList<Piece>) : Boolean{
+        return false
+    }
 
     open fun moveDown(pieceList: ArrayList<Piece>){}
 
@@ -36,6 +38,10 @@ open class Piece {
     }
 
     open fun checkDown(pieceList: ArrayList<Piece>) : Boolean {
+        return false
+    }
+
+    open fun detectWall(pieceList: ArrayList<Piece>) : Boolean {
         return false
     }
 
@@ -103,14 +109,4 @@ open class Piece {
         }
     }
 
-
-//    fun detectTop(pieceList: ArrayList<Piece>, cube: Int) : Boolean{
-//
-//        return try {
-//            pieceList[cube - 10]
-//            true
-//        } catch (exception: IndexOutOfBoundsException){
-//            false
-//        }
-//    }
 }

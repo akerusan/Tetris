@@ -157,17 +157,20 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
         if (v == rotate) {
 
-            if (mainBlock.rotation == 3) {
-                mainBlock.rotation = 0
-            } else {
-                mainBlock.rotation += 1
+            val rotate = mainBlock.rotation(pieceList)
+
+            if (rotate){
+                if (mainBlock.rotation == 3) {
+                    mainBlock.rotation = 0
+                } else {
+                    mainBlock.rotation += 1
+                }
+                val mAdapter = CubeAdapter(this, pieceList)
+                gridView!!.adapter = mAdapter
             }
-
-            mainBlock.rotation(pieceList)
-
-            val mAdapter = CubeAdapter(this, pieceList)
-            gridView!!.adapter = mAdapter
-
+            else {
+                return
+            }
         }
 
         if (v == right) {
@@ -261,7 +264,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     private fun selectBlock(next: Int) : Piece {
 
-        return when (next) {
+        return when (5) {
             1 -> PieceT(pieceList, 4)
             2 -> PieceO(pieceList, 4)
             3 -> PieceL(pieceList, 4)

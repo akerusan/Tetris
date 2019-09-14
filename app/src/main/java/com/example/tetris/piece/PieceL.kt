@@ -22,10 +22,9 @@ class PieceL : Piece {
         pieceList[axe - 1] = PieceL(axe - 1)
         pieceList[axe + 1] = PieceL(axe + 1)
         pieceList[axe + 9] = PieceL(axe + 9)
-
     }
 
-    override fun rotation(pieceList: ArrayList<Piece>){
+    override fun rotation(pieceList: ArrayList<Piece>) : Boolean {
 
         this.cube1 = axe - 1
         this.cube2 = axe + 1
@@ -36,38 +35,98 @@ class PieceL : Piece {
         this.cube7 = axe - 9
         this.cube8 = axe + 11
 
-
         if (this.rotation == 0){
-            pieceList[cube4] = Piece()
-            pieceList[cube5] = Piece()
-            pieceList[cube8] = Piece()
-            pieceList[cube2] = PieceL(cube2)
-            pieceList[cube1] = PieceL(cube1)
-            pieceList[cube3] = PieceL(cube3)
+            if (pieceList[cube4].block == "" &&
+                pieceList[cube5].block == "" &&
+                pieceList[cube6].block == "" ) {
+
+                pieceList[cube1] = Piece()
+                pieceList[cube2] = Piece()
+                pieceList[cube3] = Piece()
+                pieceList[cube4] = PieceL(cube4)
+                pieceList[cube5] = PieceL(cube5)
+                pieceList[cube6] = PieceL(cube6)
+                return true
+            }
+            else {
+                this.cube4 = 0
+                this.cube5 = 0
+                this.cube6 = 0
+                this.cube7 = 0
+                this.cube8 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 1){
-            pieceList[cube1] = Piece()
-            pieceList[cube2] = Piece()
-            pieceList[cube3] = Piece()
-            pieceList[cube4] = PieceL(cube4)
-            pieceList[cube5] = PieceL(cube5)
-            pieceList[cube6] = PieceL(cube6)
+        else if (this.rotation == 1){
+            if (pieceList[cube1].block == "" &&
+                pieceList[cube2].block == "" &&
+                pieceList[cube7].block == "" ) {
+
+                pieceList[cube4] = Piece()
+                pieceList[cube5] = Piece()
+                pieceList[cube6] = Piece()
+                pieceList[cube1] = PieceL(cube1)
+                pieceList[cube2] = PieceL(cube2)
+                pieceList[cube7] = PieceL(cube7)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                this.cube2 = 0
+                this.cube3 = 0
+                this.cube7 = 0
+                this.cube8 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 2){
-            pieceList[cube4] = Piece()
-            pieceList[cube5] = Piece()
-            pieceList[cube6] = Piece()
-            pieceList[cube2] = PieceL(cube2)
-            pieceList[cube1] = PieceL(cube1)
-            pieceList[cube7] = PieceL(cube7)
+        else if (this.rotation == 2){
+            if (pieceList[cube4].block == "" &&
+                pieceList[cube5].block == "" &&
+                pieceList[cube8].block == "" ) {
+
+                pieceList[cube2] = Piece()
+                pieceList[cube1] = Piece()
+                pieceList[cube7] = Piece()
+                pieceList[cube4] = PieceL(cube4)
+                pieceList[cube5] = PieceL(cube5)
+                pieceList[cube8] = PieceL(cube8)
+                return true
+            }
+            else {
+                this.cube3 = 0
+                this.cube4 = 0
+                this.cube5 = 0
+                this.cube6 = 0
+                this.cube8 = 0
+                return false
+            }
         }
-        if (this.rotation == 3){
-            pieceList[cube2] = Piece()
-            pieceList[cube1] = Piece()
-            pieceList[cube7] = Piece()
-            pieceList[cube4] = PieceL(cube4)
-            pieceList[cube5] = PieceL(cube5)
-            pieceList[cube8] = PieceL(cube8)
+        else if (this.rotation == 3){
+            if (pieceList[cube1].block == "" &&
+                pieceList[cube2].block == "" &&
+                pieceList[cube3].block == "" ) {
+
+                pieceList[cube4] = Piece()
+                pieceList[cube5] = Piece()
+                pieceList[cube8] = Piece()
+                pieceList[cube1] = PieceL(cube1)
+                pieceList[cube2] = PieceL(cube2)
+                pieceList[cube3] = PieceL(cube3)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                this.cube2 = 0
+                this.cube3 = 0
+                this.cube6 = 0
+                this.cube7 = 0
+                return false
+            }
+        }
+        else {
+            return false
         }
     }
 

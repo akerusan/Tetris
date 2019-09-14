@@ -23,23 +23,11 @@ class PieceO: Piece {
         pieceList[axe+10] = PieceO(axe + 10)
         pieceList[axe+11] = PieceO(axe + 11)
 
-//        if (detectTop(pieceList, this.axe)){
-//            pieceList[axe] = PieceO(axe)
-//        }
-//        if (detectTop(pieceList, this.cube1)){
-//            pieceList[axe+1] = PieceO(axe + 1)
-//        }
-//        if (detectTop(pieceList, this.cube2)){
-//            pieceList[axe+10] = PieceO(axe + 10)
-//        }
-//        if (detectTop(pieceList, this.cube3)){
-//            pieceList[axe+11] = PieceO(axe + 11)
-//        }
-
     }
 
-    override fun rotation(pieceList: ArrayList<Piece>) {
+    override fun rotation(pieceList: ArrayList<Piece>) : Boolean {
         // no rotation
+        return false
     }
 
     override fun checkRight(pieceList: ArrayList<Piece>) : Boolean {

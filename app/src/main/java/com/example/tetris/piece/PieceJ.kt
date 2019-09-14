@@ -25,7 +25,11 @@ class PieceJ : Piece {
 
     }
 
-    override fun rotation(pieceList: ArrayList<Piece>){
+    override fun rotation(pieceList: ArrayList<Piece>) : Boolean{
+
+        if (!detectWall(pieceList)){
+            return false
+        }
 
         this.cube1 = axe - 1
         this.cube2 = axe + 1
@@ -37,38 +41,130 @@ class PieceJ : Piece {
         this.cube8 = axe + 10
 
 
+
         if (this.rotation == 0){
-            pieceList[cube5] = Piece()
-            pieceList[cube7] = Piece()
-            pieceList[cube8] = Piece()
-            pieceList[cube1] = PieceJ(cube1)
-            pieceList[cube2] = PieceJ(cube2)
-            pieceList[cube3] = PieceJ(cube3)
+            if (pieceList[cube5].block == "" &&
+                pieceList[cube6].block == "" &&
+                pieceList[cube8].block == "" ) {
+
+                pieceList[cube1] = Piece()
+                pieceList[cube2] = Piece()
+                pieceList[cube3] = Piece()
+                pieceList[cube5] = PieceJ(cube5)
+                pieceList[cube6] = PieceJ(cube6)
+                pieceList[cube8] = PieceJ(cube8)
+                return true
+            }
+            else {
+                this.cube4 = 0
+                this.cube5 = 0
+                this.cube6 = 0
+                this.cube7 = 0
+                this.cube8 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 1){
-            pieceList[cube1] = Piece()
-            pieceList[cube2] = Piece()
-            pieceList[cube3] = Piece()
-            pieceList[cube5] = PieceJ(cube5)
-            pieceList[cube6] = PieceJ(cube6)
-            pieceList[cube8] = PieceJ(cube8)
+        else if (this.rotation == 1){
+            if (pieceList[cube1].block == "" &&
+                pieceList[cube2].block == "" &&
+                pieceList[cube4].block == "" ) {
+
+                pieceList[cube5] = Piece()
+                pieceList[cube6] = Piece()
+                pieceList[cube8] = Piece()
+                pieceList[cube1] = PieceJ(cube1)
+                pieceList[cube2] = PieceJ(cube2)
+                pieceList[cube4] = PieceJ(cube4)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                this.cube2 = 0
+                this.cube3 = 0
+                this.cube4 = 0
+                this.cube7 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 2){
-            pieceList[cube5] = Piece()
-            pieceList[cube6] = Piece()
-            pieceList[cube8] = Piece()
-            pieceList[cube1] = PieceJ(cube1)
-            pieceList[cube2] = PieceJ(cube2)
-            pieceList[cube4] = PieceJ(cube4)
+        else if (this.rotation == 2){
+            if (pieceList[cube5].block == "" &&
+                pieceList[cube7].block == "" &&
+                pieceList[cube8].block == "" ) {
+
+                pieceList[cube1] = Piece()
+                pieceList[cube2] = Piece()
+                pieceList[cube4] = Piece()
+                pieceList[cube5] = PieceJ(cube5)
+                pieceList[cube7] = PieceJ(cube7)
+                pieceList[cube8] = PieceJ(cube8)
+                return true
+            }
+            else {
+                this.cube3 = 0
+                this.cube5 = 0
+                this.cube6 = 0
+                this.cube7 = 0
+                this.cube8 = 0
+                return false
+            }
         }
-        if (this.rotation == 3){
-            pieceList[cube1] = Piece()
-            pieceList[cube2] = Piece()
-            pieceList[cube4] = Piece()
-            pieceList[cube5] = PieceJ(cube5)
-            pieceList[cube7] = PieceJ(cube7)
-            pieceList[cube8] = PieceJ(cube8)
+        else if (this.rotation == 3){
+            if (pieceList[cube1].block == "" &&
+                pieceList[cube2].block == "" &&
+                pieceList[cube3].block == "" ) {
+
+                pieceList[cube5] = Piece()
+                pieceList[cube7] = Piece()
+                pieceList[cube8] = Piece()
+                pieceList[cube1] = PieceJ(cube1)
+                pieceList[cube2] = PieceJ(cube2)
+                pieceList[cube3] = PieceJ(cube3)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                this.cube2 = 0
+                this.cube3 = 0
+                this.cube4 = 0
+                this.cube6 = 0
+                return false
+            }
+
         }
+        else {
+            return false
+        }
+    }
+
+    override fun detectWall(pieceList: ArrayList<Piece>) : Boolean {
+
+        val rotation = this.rotation
+
+        if (rotation == 1) {
+            // detect right wall
+            for (x in 9..199 step 10){
+                if (this.axe == x){
+                    return false
+                }
+            }
+        }
+        else if (rotation == 3){
+            // detect left wall
+            for (x in 0..190 step 10){
+                if (this.axe == x){
+                    return false
+                }
+            }
+        }
+        else if (rotation == 2) {
+            // detect bottom
+            if (this.axe > 190){
+                return false
+            }
+        }
+        return true
     }
 
     override fun checkRight(pieceList: ArrayList<Piece>) : Boolean {
@@ -219,14 +315,14 @@ class PieceJ : Piece {
 
         } else if (rotation == 2) {
 
-            if (pieceList[this.axe + 10].block == "" &&pieceList[this.cube1 + 10].block == "" && pieceList[this.cube2 + 10].block == "")
+            if (pieceList[this.axe + 10].block == "" && pieceList[this.cube1 + 10].block == "" && pieceList[this.cube2 + 10].block == "")
             {
                 return true
             }
 
         } else if (rotation == 3) {
 
-            if (pieceList[this.cube6 + 10].block == "" && pieceList[this.cube8 + 10].block == "")
+            if (pieceList[this.cube7 + 10].block == "" && pieceList[this.cube8 + 10].block == "")
             {
                 return true
             }

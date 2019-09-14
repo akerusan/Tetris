@@ -24,7 +24,7 @@ class PieceT : Piece {
         pieceList[axe+10] = PieceT(cube4)
     }
 
-    override fun rotation(pieceList: ArrayList<Piece>){
+    override fun rotation(pieceList: ArrayList<Piece>) : Boolean {
 
         this.cube1 = axe + 1
         this.cube2 = axe - 1
@@ -32,20 +32,57 @@ class PieceT : Piece {
         this.cube4 = axe + 10
 
         if (this.rotation == 0){
-            pieceList[cube3] = Piece()
-            pieceList[cube2] = PieceT(cube2)
+            if (pieceList[cube3].block == "")
+            {
+                pieceList[cube1] = Piece()
+                pieceList[cube3] = PieceT(cube3)
+                return true
+            }
+            else {
+                this.cube3 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 1){
-            pieceList[cube1] = Piece()
-            pieceList[cube3] = PieceT(cube3)
+        else if (this.rotation == 1){
+            if (pieceList[cube1].block == "")
+            {
+                pieceList[cube4] = Piece()
+                pieceList[cube1] = PieceT(cube1)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                return false
+            }
         }
-        if (this.rotation == 2){
-            pieceList[cube4] = Piece()
-            pieceList[cube1] = PieceT(cube1)
+        else if (this.rotation == 2){
+            if (pieceList[cube4].block == "")
+            {
+                pieceList[cube2] = Piece()
+                pieceList[cube4] = PieceT(cube4)
+                return true
+            }
+            else {
+                this.cube4 = 0
+                return false
+            }
+
         }
-        if (this.rotation == 3){
-            pieceList[cube2] = Piece()
-            pieceList[cube4] = PieceT(cube4)
+        else if (this.rotation == 3){
+            if (pieceList[cube2].block == "")
+            {
+                pieceList[cube3] = Piece()
+                pieceList[cube2] = PieceT(cube2)
+                return true
+            }
+            else {
+                this.cube2 = 0
+                return false
+            }
+        }
+        else {
+            return false
         }
     }
 

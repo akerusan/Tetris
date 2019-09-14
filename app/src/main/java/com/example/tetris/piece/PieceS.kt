@@ -24,7 +24,7 @@ class PieceS: Piece {
         pieceList[axe + 1] = PieceS(cube3)
     }
 
-    override fun rotation(pieceList: ArrayList<Piece>){
+    override fun rotation(pieceList: ArrayList<Piece>) : Boolean {
 
         this.cube1 = axe + 9
         this.cube2 = axe + 10
@@ -33,16 +33,39 @@ class PieceS: Piece {
         this.cube5 = axe - 11
 
         if (this.rotation == 0 || this.rotation == 2){
-            pieceList[cube4] = Piece()
-            pieceList[cube5] = Piece()
-            pieceList[cube1] = PieceS(cube1)
-            pieceList[cube3] = PieceS(cube3)
+            if (pieceList[cube4].block == "" &&
+                pieceList[cube5].block == "" ) {
+
+                pieceList[cube1] = Piece()
+                pieceList[cube3] = Piece()
+                pieceList[cube4] = PieceS(cube4)
+                pieceList[cube5] = PieceS(cube5)
+                return true
+            }
+            else {
+                this.cube4 = 0
+                this.cube5 = 0
+                return false
+            }
         }
-        if (this.rotation == 1 || this.rotation == 3){
-            pieceList[cube1] = Piece()
-            pieceList[cube3] = Piece()
-            pieceList[cube4] = PieceS(cube4)
-            pieceList[cube5] = PieceS(cube5)
+        else if (this.rotation == 1 || this.rotation == 3){
+            if (pieceList[cube1].block == "" &&
+                pieceList[cube3].block == "" ) {
+
+                pieceList[cube4] = Piece()
+                pieceList[cube5] = Piece()
+                pieceList[cube1] = PieceS(cube1)
+                pieceList[cube3] = PieceS(cube3)
+                return true
+            }
+            else {
+                this.cube1 = 0
+                this.cube3 = 0
+                return false
+            }
+        }
+        else {
+            return false
         }
     }
 
