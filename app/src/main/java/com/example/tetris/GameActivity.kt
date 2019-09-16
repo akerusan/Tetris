@@ -264,7 +264,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     private fun selectBlock(next: Int) : Piece {
 
-        return when (5) {
+        return when (next) {
             1 -> PieceT(pieceList, 4)
             2 -> PieceO(pieceList, 4)
             3 -> PieceL(pieceList, 4)

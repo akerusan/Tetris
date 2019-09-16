@@ -101,8 +101,8 @@ class PieceI : Piece {
             }
         }
         else if (rotation == 0 || rotation == 2) {
-            // detect bottom
-            if (this.axe > 180){
+            // detect top & bottom
+            if (this.axe < 10 || this.axe > 180){
                 return false
             }
         }

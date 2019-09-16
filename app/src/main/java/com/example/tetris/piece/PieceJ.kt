@@ -164,6 +164,12 @@ class PieceJ : Piece {
                 return false
             }
         }
+        else if (rotation == 0) {
+            // detect top
+            if (this.axe < 10){
+                return false
+            }
+        }
         return true
     }
 

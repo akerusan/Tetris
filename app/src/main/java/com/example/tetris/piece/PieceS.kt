@@ -26,6 +26,10 @@ class PieceS: Piece {
 
     override fun rotation(pieceList: ArrayList<Piece>) : Boolean {
 
+        if (!detectWall(pieceList)){
+            return false
+        }
+
         this.cube1 = axe + 9
         this.cube2 = axe + 10
         this.cube3 = axe + 1
@@ -67,6 +71,27 @@ class PieceS: Piece {
         else {
             return false
         }
+    }
+
+    override fun detectWall(pieceList: ArrayList<Piece>) : Boolean {
+
+        val rotation = this.rotation
+
+        if (rotation == 1 || rotation == 3) {
+            // detect right wall
+            for (x in 9..199 step 10){
+                if (this.axe == x){
+                    return false
+                }
+            }
+        }
+        else if (rotation == 0 || rotation == 2) {
+            // detect top
+            if (this.axe < 10){
+                return false
+            }
+        }
+        return true
     }
 
     override fun checkRight(pieceList: ArrayList<Piece>) : Boolean {
