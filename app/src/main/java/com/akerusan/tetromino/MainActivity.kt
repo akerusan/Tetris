@@ -1,4 +1,4 @@
-package com.example.tetris
+package com.akerusan.tetromino
 
 import android.content.Intent
 import android.os.Bundle

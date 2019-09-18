@@ -1,4 +1,4 @@
-package com.example.tetris
+package com.akerusan.tetromino
 
 import android.app.Dialog
 import android.media.MediaPlayer
@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.GridView
-import com.example.tetris.piece.*
+import com.akerusan.tetromino.piece.*
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlin.collections.ArrayList
 import com.bumptech.glide.Glide

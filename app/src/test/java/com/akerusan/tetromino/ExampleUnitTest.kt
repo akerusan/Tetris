@@ -1,4 +1,4 @@
-package com.example.tetris
+package com.akerusan.tetromino
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.tetris.piece
+package com.akerusan.tetromino.piece
 
 import java.util.ArrayList
 

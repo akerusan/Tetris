@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tetris</string>
+    <string name="app_name">Tetromino</string>
     <string name="facebook_app_id">562480944277206</string>
     <string name="fb_login_protocol_scheme">fb562480944277206</string>
 

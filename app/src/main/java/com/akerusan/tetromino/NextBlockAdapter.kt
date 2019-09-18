@@ -1,4 +1,4 @@
-package com.example.tetris
+package com.akerusan.tetromino
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.example.tetris.piece.Piece
+import com.akerusan.tetromino.piece.Piece
 import java.util.*
 
-class CubeAdapter(private val context: Context, itemList: ArrayList<Piece>) : BaseAdapter() {
+class NextBlockAdapter(private val context: Context, itemList: ArrayList<Piece>) : BaseAdapter() {
 
     private var mInflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var mBlock: String
