@@ -51,7 +51,6 @@ class NextBlockAdapter(private val context: Context, itemList: ArrayList<Piece>)
         if (mBlock == "es"){
             es(position, view)
         }
-
         return view
     }
 

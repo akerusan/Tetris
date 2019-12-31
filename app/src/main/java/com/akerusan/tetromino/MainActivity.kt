@@ -19,8 +19,6 @@ import com.facebook.GraphResponse
 import com.facebook.GraphRequest
 import com.facebook.AccessToken
 
-
-
 open class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     private lateinit var loginButton: LoginButton

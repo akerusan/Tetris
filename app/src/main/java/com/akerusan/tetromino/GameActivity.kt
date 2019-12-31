@@ -9,11 +9,12 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.GridView
 import com.akerusan.tetromino.piece.*
-import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.activity_game_2.*
 import kotlin.collections.ArrayList
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.alert_dialog.*
 import android.graphics.drawable.ColorDrawable
+import android.util.DisplayMetrics
 
 open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener{
 
@@ -49,7 +50,20 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+
+        // get device dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        val width = displayMetrics.widthPixels
+        val height = displayMetrics.heightPixels
+
+        if ((height/width) >= 2){
+            setContentView(R.layout.activity_game_2)
+        }
+        else{
+            setContentView(R.layout.activity_game_1)
+        }
 
 //        // Hide the status bar.
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -182,13 +196,15 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         }
 
         if (v == down){
-            val check = mainBlock.checkDown(pieceList)
-            if (check) {
-                mainBlock.removeBlock(pieceList)
-                mainBlock.moveDown(pieceList)
+            if (mainBlock.detectBottom(pieceList)){
+                val check = mainBlock.checkDown(pieceList)
+                if (check) {
+                    mainBlock.removeBlock(pieceList)
+                    mainBlock.moveDown(pieceList)
 
-                val mAdapter = CubeAdapter(this, pieceList)
-                gridView!!.adapter = mAdapter
+                    val mAdapter = CubeAdapter(this, pieceList)
+                    gridView!!.adapter = mAdapter
+                }
             }
         }
 
@@ -287,7 +303,15 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
         NextPiece(nextPiece, next)
 
-        nextView = nextBlock
+        if (next == 2 || next == 4){
+            nextView = nextBlock_4
+            nextBlock_4.visibility = View.VISIBLE
+            nextBlock_5.visibility = View.GONE
+        } else {
+            nextView = nextBlock_5
+            nextBlock_4.visibility = View.GONE
+            nextBlock_5.visibility = View.VISIBLE
+        }
         val mNextBlockAdaptater = CubeAdapter(this, nextPiece)
         nextView!!.adapter = mNextBlockAdaptater
     }

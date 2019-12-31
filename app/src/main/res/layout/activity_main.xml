@@ -1,90 +1,77 @@
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/blueGray">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blueGray"
+    android:orientation="vertical">
 
-    <LinearLayout
-            android:id="@+id/background"
-            android:orientation="vertical"
-            android:layout_width="335dp"
-            android:layout_height="125dp"
-            android:background="@drawable/game_background"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="38dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="520dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="38dp"
-            android:layout_marginTop="17dp"
-            android:layout_alignParentTop="true">
-    </LinearLayout>
 
-    <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+    <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="50dp"
-            android:text="TETROMINO"
-            android:textColor="@color/darkBlue"
-            android:layout_alignEnd="@+id/background"
-            android:layout_marginBottom="28dp"
-            android:layout_alignBottom="@+id/background"
-            android:layout_marginEnd="18dp"
-            android:layout_marginStart="18dp"
-            android:layout_alignStart="@+id/background"
-            android:layout_alignTop="@+id/background"
-            android:layout_marginTop="28dp"/>
+            android:orientation="vertical">
 
+        <LinearLayout
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/game_background"/>
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="50sp"
+                android:text="TETROMINO"
+                android:textColor="@color/darkBlue"
+                android:layout_alignEnd="@+id/background"
+                android:layout_marginBottom="28dp"
+                android:layout_alignBottom="@+id/background"
+                android:layout_marginEnd="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_alignStart="@+id/background"
+                android:layout_alignTop="@+id/background"
+                android:layout_marginTop="28dp"/>
+
+    </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_pic"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_width="138dp"
-            android:layout_height="137dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="137dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="322dp"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/ic_launcher_round" />
 
     <TextView
             android:id="@+id/profile_name"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
             android:text=""
-            android:gravity="center"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="160dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="281dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="160dp"/>
+            android:gravity="center"/>
 
     <ImageView
             android:id="@+id/launchGame"
-            android:layout_width="50dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_play_circle_filled_black_48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="125dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="100dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_play_circle_filled_black_48dp"/>
 
     <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="116dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="115dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"/>
 
-</RelativeLayout>
+</LinearLayout>
