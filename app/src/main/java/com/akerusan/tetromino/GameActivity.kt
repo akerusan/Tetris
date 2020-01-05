@@ -1,20 +1,26 @@
 package com.akerusan.tetromino
 
 import android.app.Dialog
+import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.GridView
+import android.widget.Toast
 import com.akerusan.tetromino.piece.*
-import kotlinx.android.synthetic.main.activity_game_2.*
-import kotlin.collections.ArrayList
-import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.alert_dialog.*
-import android.graphics.drawable.ColorDrawable
-import android.util.DisplayMetrics
+import kotlin.math.roundToInt
+
 
 open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener{
 
@@ -48,35 +54,26 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     private val nextPiece = ArrayList<Piece>()
     private lateinit var mainBlock: Piece
 
+    private var highScore: String? = null
+    private var mAuth: FirebaseAuth? = null
+    private var user: FirebaseUser? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // get device dimensions
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        val width = displayMetrics.widthPixels
-        val height = displayMetrics.heightPixels
-
-        if ((height/width) >= 2){
-            setContentView(R.layout.activity_game_2)
-        }
-        else{
-            setContentView(R.layout.activity_game_1)
-        }
+        adaptToScreen()
 
 //        // Hide the status bar.
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 //        // Remember that you should never show the action bar if the
 //        // status bar is hidden, so hide that too if necessary.
 //        actionBar?.hide()
-
-        val intent = intent
-        val imageUrl = intent.getStringExtra("imageUrl")
-
-        Glide.with(this@GameActivity).load(imageUrl).into(profile_pic)
+        highScore = intent.getStringExtra("highscore")
+        high_score.text = highScore
 
         start.setOnClickListener(this)
+
+        mAuth = FirebaseAuth.getInstance()
+        user = mAuth!!.currentUser
 
         mediaPlayer = MediaPlayer.create(this, R.raw.tetris)
         mediaPlayer!!.isLooping = true
@@ -108,24 +105,55 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         pause.performClick()
     }
 
+    private fun adaptToScreen(){
+        // get device dimensions
+        val dm = DisplayMetrics()
+        val context: Context = applicationContext
+
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getMetrics(dm)
+
+        val widthInDP = (dm.widthPixels / dm.density).roundToInt()
+        val heightInDP = (dm.heightPixels / dm.density).roundToInt()
+
+        if (widthInDP > 390){
+            setContentView(R.layout.activity_game)
+        } else {
+            setContentView(R.layout.activity_game_small)
+        }
+        when {
+            heightInDP > 800 -> {
+                title_big_screen.visibility = View.VISIBLE
+            }
+            heightInDP > 730 -> {
+                title_medium_screen.visibility = View.VISIBLE
+            }
+            heightInDP > 670 -> {
+                title_small_screen.visibility = View.VISIBLE
+            }
+        }
+    }
+
     override fun onLongClick(v: View?): Boolean {
 
-        if (v == left){
-            farLeft = false
-            while (!farLeft){
-                moveLeft()
+        when (v) {
+            left -> {
+                farLeft = false
+                while (!farLeft){
+                    moveLeft()
+                }
             }
-        }
-        else if (v == right) {
-            farRight = false
-            while (!farRight){
-                moveRight()
+            right -> {
+                farRight = false
+                while (!farRight){
+                    moveRight()
+                }
             }
-        }
-        else if (v == down){
-            bottom = false
-            while (!bottom){
-                moveDown()
+            down -> {
+                bottom = false
+                while (!bottom){
+                    moveDown()
+                }
             }
         }
         return true
@@ -462,6 +490,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         }
         score += point
         totalScore.text = score.toString()
+
+        checkHighScore(score)
     }
 
     private fun initializeGrid(){
@@ -580,6 +610,35 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         currentLevel += 1
         countDownIntervall -= 100L
         level.text = currentLevel.toString()
+    }
+
+    private fun checkHighScore(score: Int){
+
+        if (score > highScore!!.toInt()){
+
+            highScore = score.toString()
+            high_score.text = highScore
+
+            if (user != null){
+                // call db
+                addScoreToDB(highScore!!)
+            }
+        }
+    }
+    private fun addScoreToDB(hs: String){
+
+        val userId = mAuth!!.currentUser!!.uid
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users")
+            .document(userId)
+            .update("high_score", hs)
+            .addOnSuccessListener {
+                // nothing
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error adding document", Toast.LENGTH_LONG).show()
+            }
     }
 }
 

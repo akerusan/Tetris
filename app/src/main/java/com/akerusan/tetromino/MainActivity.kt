@@ -1,127 +1,143 @@
 package com.akerusan.tetromino
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import com.facebook.*
-import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
-import de.hdodenhof.circleimageview.CircleImageView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONObject
-import org.json.JSONException
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.facebook.GraphResponse
-import com.facebook.GraphRequest
-import com.facebook.AccessToken
+import kotlinx.android.synthetic.main.alert_dialog_ok.*
 
 open class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-    private lateinit var loginButton: LoginButton
-    private lateinit var circleImageView: CircleImageView
-    private lateinit var txtName: TextView
-
-    private lateinit var callBackManager: CallbackManager
-
-    private var imageUrl = ""
+    private var mAuth: FirebaseAuth? = null
+    private var user: FirebaseUser? = null
+    private var db: FirebaseFirestore? = null
     private var userName = ""
+    private var highScore = "0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loginButton = login_button
-        circleImageView = profile_pic
-        txtName = profile_name
-
-        callBackManager = CallbackManager.Factory.create()
-        loginButton.setReadPermissions(arrayListOf("public_profile"))
-        checkLoginStatus()
-
-        loginButton.registerCallback(callBackManager, object : FacebookCallback<LoginResult>{
-            override fun onSuccess(loginResult: LoginResult){
-
-            }
-            override fun onCancel(){
-
-            }
-            override fun onError(error: FacebookException){
-
-            }
-        })
-
         launchGame.setOnClickListener(this)
+        login_main.setOnClickListener(this)
+        register_main.setOnClickListener(this)
+        logout_main.setOnClickListener(this)
+        settings.setOnClickListener(this)
+        ranking_main.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mAuth = FirebaseAuth.getInstance()
+        user = mAuth!!.currentUser
+
+        if (user == null) {
+            login_main.visibility = View.VISIBLE
+            register_main.visibility = View.VISIBLE
+            ranking_main.visibility = View.GONE
+            logout_main.visibility = View.GONE
+        } else {
+            login_main.visibility = View.GONE
+            register_main.visibility = View.GONE
+            ranking_main.visibility = View.VISIBLE
+            logout_main.visibility = View.VISIBLE
+
+            val userId = user!!.uid
+
+            db = FirebaseFirestore.getInstance()
+            db!!.collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener { result ->
+                    userName = result.data!!["username"].toString()
+                    highScore = result.data!!["high_score"].toString()
+                    profile_name.visibility = View.VISIBLE
+                    profile_highscore.visibility = View.VISIBLE
+                    profile_name.text = resources.getString(R.string.welcome, userName)
+                    profile_highscore.text = resources.getString(R.string.highscore, highScore)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error getting documents.", Toast.LENGTH_LONG).show()
+                }
+        }
+
+        if (userName.isNotEmpty()) {
+            profile_name.visibility = View.VISIBLE
+            profile_name.text = resources.getString(R.string.welcome, userName)
+        } else {
+            profile_name.visibility = View.INVISIBLE
+            profile_highscore.visibility = View.INVISIBLE
+        }
     }
 
     override fun onClick(v: View?) {
 
-        if(v == launchGame){
-            val intent = Intent(this, GameActivity::class.java)
-            intent.putExtra("imageUrl", imageUrl)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        when (v) {
+            launchGame -> {
+                val intent = Intent(this, GameActivity::class.java)
+                intent.putExtra("highscore", highScore)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            settings -> {
+                val dialog = Dialog(this@MainActivity)
+                dialog.setContentView(R.layout.alert_dialog_ok)
+                dialog.show()
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                dialog.dialog_ok.setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
+            register_main -> {
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivityForResult(intent, 2)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            login_main -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivityForResult(intent, 1)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            ranking_main -> {
+                val intent = Intent(this, RankingActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            logout_main -> {
+                user = null
+                userName = ""
+                highScore = "0"
+                mAuth!!.signOut()
+                Toast.makeText(this, "Log Out Successful", Toast.LENGTH_LONG).show()
+                this.onResume()
+            }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callBackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
-    }
 
-    private var tokenTracker = object :  AccessTokenTracker(){
-        override fun onCurrentAccessTokenChanged(oldAccessToken: AccessToken?, currentAccessToken: AccessToken?) {
-
-            if (currentAccessToken == null){
-                txtName.text = ""
-                circleImageView.setImageResource(0)
-                Toast.makeText(this@MainActivity, "User logged out", Toast.LENGTH_LONG).show()
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK){
+                Toast.makeText(this, "Log In Successful!", Toast.LENGTH_LONG).show()
             }
-            else {
-                loadUserProfile(currentAccessToken)
+        } else if (requestCode == 2){
+            if (resultCode == Activity.RESULT_OK){
+                Toast.makeText(this, "SignUp Successful!", Toast.LENGTH_LONG).show()
             }
         }
     }
-
-    private fun loadUserProfile(newAccessToken: AccessToken){
-        val request = GraphRequest.newMeRequest(newAccessToken, object : GraphRequest(), GraphRequest.GraphJSONObjectCallback {
-            override fun onCompleted(obj: JSONObject, response: GraphResponse){
-                try {
-                val firstName = obj.getString("first_name")
-                val lastName = obj.getString("last_name")
-                val id = obj.getString("id")
-
-                imageUrl = "https://graph.facebook.com/$id/picture?type=normal"
-                userName = "$firstName $lastName"
-
-                txtName.text = userName
-
-                val requestOption = RequestOptions()
-                requestOption.dontAnimate()
-
-                Glide.with(this@MainActivity).load(imageUrl).into(circleImageView)
-
-            } catch (e: JSONException){
-                e.printStackTrace()
-            }
-            }
-        })
-
-        val parameters = Bundle()
-        parameters.putString("fields", "first_name,last_name,id")
-        request.parameters = parameters
-        request.executeAsync()
-    }
-
-    private fun checkLoginStatus() {
-        if (AccessToken.getCurrentAccessToken() != null) {
-            loadUserProfile(AccessToken.getCurrentAccessToken())
-        }
-    }
-
 }
 
 

@@ -15,14 +15,13 @@ class CubeAdapter(private val context: Context, itemList: ArrayList<Piece>) : Ba
     private lateinit var mBlock: String
     private var mAxe: Int = 0
     private val items: ArrayList<Piece> = itemList
-    private val test = R.layout.piece
+    private val piece = R.layout.piece
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
 
-
         if (view == null) {
-            view = mInflater.inflate(test, null)
+            view = mInflater.inflate(piece, null)
         }
 
         mBlock = items[position].block

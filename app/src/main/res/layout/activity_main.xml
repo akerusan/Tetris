@@ -10,6 +10,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
         <LinearLayout
@@ -41,37 +42,95 @@
 
     </RelativeLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_launcher_round" />
-
     <TextView
             android:id="@+id/profile_name"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:text=""
-            android:gravity="center"/>
-
-    <ImageView
-            android:id="@+id/launchGame"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/ic_play_circle_filled_black_48dp"/>
-
-    <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:gravity="center_horizontal"/>
+            android:text=""
+            android:textSize="20sp"
+            android:textColor="@color/green"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    <TextView
+            android:id="@+id/profile_highscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text=""
+            android:textSize="20sp"
+            android:textColor="@color/green"
+            android:gravity="center"
+            android:visibility="invisible"/>
+
+<!--    <ImageView-->
+<!--            android:id="@+id/launchGame"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:src="@drawable/ic_play_circle_filled_black_48dp"/>-->
+
+    <Button
+            android:id="@+id/launchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="Play"/>
+
+    <Button
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="Settings"/>
+
+    <Button
+            android:id="@+id/login_main"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="log in"
+            android:visibility="visible"/>
+
+    <Button
+            android:id="@+id/register_main"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="Register"
+            android:visibility="visible"/>
+
+    <Button
+            android:id="@+id/ranking_main"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="Ranking"
+            android:visibility="visible"/>
+
+    <Button
+            android:id="@+id/logout_main"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/game_background"
+            android:layout_margin="10dp"
+            android:text="log out"
+            android:visibility="gone"/>
+
 
 </LinearLayout>

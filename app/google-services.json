@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "322409118002",
+    "firebase_url": "https://tetrominodb.firebaseio.com",
+    "project_id": "tetrominodb",
+    "storage_bucket": "tetrominodb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322409118002:android:7f0b694fc73c5dd49a7f2b",
+        "android_client_info": {
+          "package_name": "com.akerusan.tetromino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322409118002-1l3l20u0nffiughouv18e0jucc2c5fu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akerusan.tetromino",
+            "certificate_hash": "76fba65d333bdb880cad6a9306a1194959413fa3"
+          }
+        },
+        {
+          "client_id": "322409118002-dr71joee0lbv0f008lv4poih58v6poh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfanTZtM3CG2Pul64oufwMkw32CkcWerE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322409118002-dr71joee0lbv0f008lv4poih58v6poh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
