@@ -14,7 +14,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/darkBlue"
-            android:text="Worldwide Ranking"/>
+            android:text="@string/ranking_table"/>
 
     <ListView
             android:id="@+id/ranking_listview"

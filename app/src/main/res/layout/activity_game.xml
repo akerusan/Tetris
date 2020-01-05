@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textSize="40sp"
-                android:text="TETROMINO"
+                android:text="@string/tetromino_cap"
                 android:textColor="@color/darkBlue"
                 android:visibility="gone"/>
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textSize="60sp"
-                android:text="TETROMINO"
+                android:text="@string/tetromino_cap"
                 android:textColor="@color/darkBlue"
                 android:visibility="gone"/>
 
@@ -44,10 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="512dp"
             android:layout_marginTop="10dp">
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
             <RelativeLayout
                     android:layout_width="wrap_content"
@@ -74,9 +70,9 @@
                         android:layout_alignEnd="@+id/countdown"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="GAME OVER"
+                        android:text="@string/game_over"
                         android:textColor="@color/darkBlue"
-                        android:textSize="40dp"
+                        android:textSize="40sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
 
@@ -90,8 +86,8 @@
                         android:layout_alignBottom="@id/game_grid"
                         android:gravity="center"
                         android:textColor="@color/darkBlue"
-                        android:textSize="60dp"
-                        android:text="3"
+                        android:textSize="60sp"
+                        android:text=""
                         android:visibility="visible" />
 
                 <Button
@@ -103,13 +99,11 @@
                         android:layout_marginStart="85dp"
                         android:background="@drawable/game_background"
                         android:gravity="center"
-                        android:text="START"
+                        android:text="@string/start"
                         android:textColor="@color/red"
                         android:visibility="gone" />
 
             </RelativeLayout>
-
-        </LinearLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +116,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NEXT BLOCK"
+                    android:text="@string/next_block"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/green"/>
@@ -162,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/green"
                         android:textStyle="bold"
-                        android:text="LEVEL"/>
+                        android:text="@string/level"/>
 
                 <TextView
                         android:id="@+id/level"
@@ -170,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkBlue"
-                        android:text="0"/>
+                        android:text="@string/zero"/>
 
             </LinearLayout>
 
@@ -185,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/green"
                         android:textStyle="bold"
-                        android:text="HIGH SCORE"/>
+                        android:text="@string/high_score"/>
 
                 <TextView
                         android:id="@+id/high_score"
@@ -193,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkBlue"
-                        android:text="0"/>
+                        android:text="@string/zero"/>
 
             </LinearLayout>
 
@@ -209,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/green"
                         android:textStyle="bold"
-                        android:text="SCORE"/>
+                        android:text="@string/score"/>
 
                 <TextView
                         android:id="@+id/totalScore"
@@ -217,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkBlue"
-                        android:text="0"/>
+                        android:text="@string/zero"/>
 
             </LinearLayout>
 
@@ -233,15 +227,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:textColor="@color/deepRed"
-                        android:textSize="30dp"
-                        android:text="+"/>
+                        android:textSize="30sp"
+                        android:text="@string/plus"/>
 
                 <TextView
                         android:id="@+id/points"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:textColor="@color/deepRed"
-                        android:textSize="30dp"
+                        android:textSize="30sp"
                         android:text=""/>
 
             </LinearLayout>
@@ -262,14 +256,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_pause_circle_outline_black_24dp"
-                            android:visibility="gone"/>
+                            android:visibility="gone"
+                            android:contentDescription="@string/resume_play"/>
 
                     <ImageView
                             android:id="@+id/pause"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_play_circle_outline_black_36dp"
-                            android:visibility="visible"/>
+                            android:visibility="visible"
+                            android:contentDescription="@string/pause_play"/>
 
                 </RelativeLayout>
 
@@ -283,14 +279,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_volume_off_black_24dp"
-                            android:visibility="gone"/>
+                            android:visibility="gone"
+                            android:contentDescription="@string/resume_sound"/>
 
                     <ImageView
                             android:id="@+id/volumeOff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_volume_up_black_24dp"
-                            android:visibility="visible"/>
+                            android:visibility="visible"
+                            android:contentDescription="@string/pause_sound"/>
 
                 </RelativeLayout>
 
@@ -330,7 +328,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:contentDescription="@string/left_arrow"/>
 
         </RelativeLayout>
 
@@ -359,7 +358,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_arrow_downward_black_36dp" />
+                    android:src="@drawable/ic_arrow_downward_black_36dp"
+                    android:contentDescription="@string/down_arrow"/>
 
         </RelativeLayout>
 
@@ -386,7 +386,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_arrow_forward_black_36dp" />
+                    android:src="@drawable/ic_arrow_forward_black_36dp"
+                    android:contentDescription="@string/right_arrow" />
 
         </RelativeLayout>
 
@@ -403,7 +404,6 @@
                     android:contentDescription="@android:string/ok"
                     android:textAlignment="center" />
 
-
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -415,7 +415,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_refresh_black_24dp" />
+                    android:src="@drawable/ic_refresh_black_24dp"
+                    android:contentDescription="@string/switch_arrow"/>
 
         </RelativeLayout>
 

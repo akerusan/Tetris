@@ -13,6 +13,7 @@ import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.GridView
 import android.widget.Toast
+import com.akerusan.tetromino.adapter.CubeAdapter
 import com.akerusan.tetromino.piece.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -207,7 +208,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                 } else {
                     mainBlock.rotation += 1
                 }
-                val mAdapter = CubeAdapter(this, pieceList)
+                val mAdapter =
+                    CubeAdapter(this, pieceList)
                 gridView!!.adapter = mAdapter
             }
             else {
@@ -230,7 +232,10 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                     mainBlock.removeBlock(pieceList)
                     mainBlock.moveDown(pieceList)
 
-                    val mAdapter = CubeAdapter(this, pieceList)
+                    val mAdapter = CubeAdapter(
+                        this,
+                        pieceList
+                    )
                     gridView!!.adapter = mAdapter
                 }
             }
@@ -281,7 +286,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             val currentBlock = selectBlock(next)
 
             // display the selected block on screen
-            val mAdapter = CubeAdapter(this, pieceList)
+            val mAdapter =
+                CubeAdapter(this, pieceList)
             gridView!!.adapter = mAdapter
             // add the block as the main block
             mainBlock = currentBlock
@@ -340,7 +346,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             nextBlock_4.visibility = View.GONE
             nextBlock_5.visibility = View.VISIBLE
         }
-        val mNextBlockAdaptater = CubeAdapter(this, nextPiece)
+        val mNextBlockAdaptater =
+            CubeAdapter(this, nextPiece)
         nextView!!.adapter = mNextBlockAdaptater
     }
 
@@ -350,7 +357,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             mainBlock.removeBlock(pieceList)
             mainBlock.moveRight(pieceList)
 
-            val mAdapter = CubeAdapter(this, pieceList)
+            val mAdapter =
+                CubeAdapter(this, pieceList)
             gridView!!.adapter = mAdapter
         } else {
             farRight = true
@@ -363,7 +371,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             mainBlock.removeBlock(pieceList)
             mainBlock.moveLeft(pieceList)
 
-            val mAdapter = CubeAdapter(this, pieceList)
+            val mAdapter =
+                CubeAdapter(this, pieceList)
             gridView!!.adapter = mAdapter
         } else {
             farLeft = true
@@ -380,7 +389,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                 mainBlock.removeBlock(pieceList)
                 mainBlock.moveDown(pieceList)
 
-                val mAdapter = CubeAdapter(this, pieceList)
+                val mAdapter =
+                    CubeAdapter(this, pieceList)
                 gridView!!.adapter = mAdapter
             } else {
                 bottom = true
@@ -453,7 +463,10 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
                             pieceList[z].block = ""
                         }
                     }
-                    val mAdapter = CubeAdapter(this, pieceList)
+                    val mAdapter = CubeAdapter(
+                        this,
+                        pieceList
+                    )
                     gridView!!.adapter = mAdapter
 
                     fullRows += 1
@@ -506,7 +519,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         mainBlock = Piece()
 
         gridView = game_grid
-        val mAdapter = CubeAdapter(this, pieceList)
+        val mAdapter =
+            CubeAdapter(this, pieceList)
         gridView!!.adapter = mAdapter
     }
 

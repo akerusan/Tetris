@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.akerusan.tetromino.adapter.RankingAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_ranking.*
 
@@ -35,7 +36,10 @@ open class RankingActivity : AppCompatActivity() {
 
                 // display the rannking table
                 listView = ranking_listview
-                val mAdapter = RankingAdapter(this, sortedRank)
+                val mAdapter = RankingAdapter(
+                    this,
+                    sortedRank
+                )
                 listView!!.adapter = mAdapter
             }
             .addOnFailureListener {
