@@ -32,6 +32,6 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/game_background"
         android:layout_margin="10dp"
-        android:text=""/>
+        android:text="@string/log_in"/>
 
 </LinearLayout>

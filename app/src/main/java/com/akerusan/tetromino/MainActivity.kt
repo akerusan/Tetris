@@ -23,6 +23,9 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
     private var userName = ""
     private var highScore = "0"
 
+    private var you: Boolean = false
+    private var grid: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -86,18 +89,17 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
             launchGame -> {
                 val intent = Intent(this, GameActivity::class.java)
                 intent.putExtra("highscore", highScore)
+                intent.putExtra("addblock", you)
+                intent.putExtra("addgrid", grid)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             settings -> {
-                val dialog = Dialog(this@MainActivity)
-                dialog.setContentView(R.layout.alert_dialog_ok)
-                dialog.show()
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                dialog.dialog_ok.setOnClickListener {
-                    dialog.dismiss()
-                }
+                val intent = Intent(this, SettingsActivity::class.java)
+                intent.putExtra("addblock", you)
+                intent.putExtra("addgrid", grid)
+                startActivityForResult(intent, 0)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             register_main -> {
                 val intent = Intent(this, RegisterActivity::class.java)
@@ -128,7 +130,13 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1){
+        if (requestCode == 0){
+            if (resultCode == Activity.RESULT_OK){
+                you = data!!.getBooleanExtra("addblock", false)
+                grid = data.getBooleanExtra("addgrid", false)
+                println(you)
+            }
+        } else if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
                 Toast.makeText(this, "Log In Successful!", Toast.LENGTH_LONG).show()
             }

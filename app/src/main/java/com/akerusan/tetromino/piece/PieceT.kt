@@ -17,7 +17,7 @@ class PieceT : Piece {
         this.cube1 = axe + 1
         this.cube2 = axe - 1
         this.cube4 = axe + 10
-        
+
         pieceList[axe] = PieceT(axe)
         pieceList[axe+1] = PieceT(cube1)
         pieceList[axe-1] = PieceT(cube2)

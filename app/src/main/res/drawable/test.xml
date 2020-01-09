@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The bottom layer is blue square.-->
+    <item>
+        <shape>
+            <solid android:color="@color/darkBlue" />
+            <size android:height="200dp"
+                    android:width="200dp" />
+        </shape>
+    </item>
+
+    <!-- The middle layer is green circle.-->
+    <item>
+        <shape android:shape="oval">
+            <size
+                    android:width="10dp"
+                    android:height="10dp" />
+            <solid android:color="@color/green" />
+        </shape>
+    </item>
+
+</layer-list>

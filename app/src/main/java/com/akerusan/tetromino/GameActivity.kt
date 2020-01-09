@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_dialog.*
 import kotlin.math.roundToInt
 
@@ -45,6 +46,9 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     private var score: Int = 0
     private var currentLevel = 0
 
+    private var you: Boolean = false
+    private var grid: Boolean = false
+
     private var playing: Boolean = false
     private var fullRows: Int = 0
     private var next: Int = 0
@@ -68,6 +72,13 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 //        // Remember that you should never show the action bar if the
 //        // status bar is hidden, so hide that too if necessary.
 //        actionBar?.hide()
+        you = intent.getBooleanExtra("addblock", false)
+
+        grid = intent.getBooleanExtra("addgrid", false)
+        if (grid){
+            game_grid.background = resources.getDrawable(R.drawable.game_background_grid)
+        }
+
         highScore = intent.getStringExtra("highscore")
         high_score.text = highScore
 
@@ -278,24 +289,31 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             checkingScore()
 
             if (next == 0){
-                // randomly get a number from 1 to 7
-                next = (1..7).shuffled().first()
+                // randomly get a number
+                next = if (!you){
+                    (1..7).shuffled().first()
+                } else {
+                    (1..8).shuffled().first()
+                }
             }
 
             // create random block
             val currentBlock = selectBlock(next)
 
             // display the selected block on screen
-            val mAdapter =
-                CubeAdapter(this, pieceList)
+            val mAdapter = CubeAdapter(this, pieceList)
             gridView!!.adapter = mAdapter
             // add the block as the main block
             mainBlock = currentBlock
 
             timer()
 
-            // randomly get a number from 1 to 7
-            next = (1..7).shuffled().first()
+            // randomly get a number
+            next = if (!you){
+                (1..7).shuffled().first()
+            } else {
+                (1..8).shuffled().first()
+            }
             // display the next block on screen
             displayNext(next)
 
@@ -322,6 +340,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             5 -> PieceJ(pieceList, 4)
             6 -> PieceZ(pieceList, 4)
             7 -> PieceS(pieceList, 4)
+            8 -> PieceU(pieceList, 14)
             else -> Piece()
         }
     }

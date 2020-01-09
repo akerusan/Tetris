@@ -63,12 +63,23 @@ class NextPiece : Piece {
                 this.cube4 = 12
                 blockString = "es"
             }
+            8 -> {
+                this.cube1 = 6
+                this.cube2 = 8
+                this.cube3 = 11
+                this.cube4 = 12
+                this.cube5 = 13
+                blockString = "you"
+            }
         }
 
         nextPiece[cube1] = NextPiece(cube1, blockString)
         nextPiece[cube2] = NextPiece(cube2, blockString)
         nextPiece[cube3] = NextPiece(cube3, blockString)
         nextPiece[cube4] = NextPiece(cube4, blockString)
+        if (this.cube5 != 0){
+            nextPiece[cube5] = NextPiece(cube5, blockString)
+        }
     }
 
 }
