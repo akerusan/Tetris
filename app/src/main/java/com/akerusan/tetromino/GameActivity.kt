@@ -6,20 +6,20 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.appcompat.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.GridView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.akerusan.tetromino.adapter.CubeAdapter
+import com.akerusan.tetromino.adapter.swipe.OnSwipeTouchListener
 import com.akerusan.tetromino.piece.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_game.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_dialog.*
 import kotlin.math.roundToInt
 
@@ -48,6 +48,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
     private var you: Boolean = false
     private var grid: Boolean = false
+    private var swipe: Boolean = false
 
     private var playing: Boolean = false
     private var fullRows: Int = 0
@@ -73,6 +74,11 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 //        // status bar is hidden, so hide that too if necessary.
 //        actionBar?.hide()
         you = intent.getBooleanExtra("addblock", false)
+
+        swipe = intent.getBooleanExtra("addswipe", false)
+        if (swipe){
+            integrateSwipe()
+        }
 
         grid = intent.getBooleanExtra("addgrid", false)
         if (grid){
@@ -585,7 +591,6 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             dialog.dismiss()
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
-
     }
 
     private fun checkingScore(){
@@ -672,6 +677,44 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             .addOnFailureListener {
                 Toast.makeText(this, "Error adding document", Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun integrateSwipe(){
+        game_grid.setOnTouchListener(object : OnSwipeTouchListener(this) {
+            override fun onClick(x: Int, y: Int) {
+                val halfGridWidth = (game_grid.width / 2)
+                if (x < halfGridWidth){
+                    moveLeft()
+                } else {
+                    moveRight()
+                }
+            }
+
+            override fun onSwipeLeft() {
+                farLeft = false
+                while (!farLeft){
+                    moveLeft()
+                }
+            }
+
+            override fun onSwipeRight() {
+                farRight = false
+                while (!farRight){
+                    moveRight()
+                }
+            }
+
+            override fun onSwipeDown() {
+                bottom = false
+                while (!bottom){
+                    moveDown()
+                }
+            }
+
+            override fun onSwipeUp() {
+                rotate.performClick()
+            }
+        })
     }
 }
 

@@ -3,6 +3,7 @@
     <string name="tetromino_cap">TETROMINO</string>
     <string name="game_over">GAME OVER</string>
     <string name="start">START</string>
+    <string name="retry">RETRY</string>
     <string name="next_block">NEXT BLOCK</string>
     <string name="level">LEVEL</string>
     <string name="high_score">HIGH SCORE</string>

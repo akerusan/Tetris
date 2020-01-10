@@ -25,6 +25,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     private var you: Boolean = false
     private var grid: Boolean = false
+    private var swipe: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +92,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
                 intent.putExtra("highscore", highScore)
                 intent.putExtra("addblock", you)
                 intent.putExtra("addgrid", grid)
+                intent.putExtra("addswipe", swipe)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -98,6 +100,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
                 val intent = Intent(this, SettingsActivity::class.java)
                 intent.putExtra("addblock", you)
                 intent.putExtra("addgrid", grid)
+                intent.putExtra("addswipe", swipe)
                 startActivityForResult(intent, 0)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -134,6 +137,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
             if (resultCode == Activity.RESULT_OK){
                 you = data!!.getBooleanExtra("addblock", false)
                 grid = data.getBooleanExtra("addgrid", false)
+                swipe = data.getBooleanExtra("addswipe", false)
                 println(you)
             }
         } else if (requestCode == 1){

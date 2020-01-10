@@ -14,75 +14,55 @@
             <stroke
                     android:color="@color/darkBlue"
                     android:width="3dp"/>
-
         </shape>
     </item>
-
     <item
             android:start="-246dp"
             android:width="550dp">
-
         <rotate
                 android:fromDegrees="90">
-
             <shape
                     android:shape="line">
 
                 <stroke android:color="@color/darkBlue"
                         android:width="0.5dp"/>
             </shape>
-
         </rotate>
     </item>
-
     <item
             android:start="-222dp"
             android:width="550dp">
-
         <rotate
                 android:fromDegrees="90">
-
             <shape
                     android:shape="line">
-
                 <stroke android:color="@color/darkBlue"
                         android:width="0.5dp"/>
             </shape>
-
         </rotate>
     </item>
-
     <item
             android:start="-198dp"
             android:width="550dp">
-
         <rotate
                 android:fromDegrees="90">
-
             <shape
                     android:shape="line">
-
                 <stroke android:color="@color/darkBlue"
                         android:width="0.5dp"/>
             </shape>
-
         </rotate>
     </item>
-
     <item
             android:start="-174dp"
             android:width="550dp">
-
         <rotate
                 android:fromDegrees="90">
-
             <shape
                     android:shape="line">
-
                 <stroke android:color="@color/darkBlue"
                         android:width="0.5dp"/>
             </shape>
-
         </rotate>
     </item>
 
