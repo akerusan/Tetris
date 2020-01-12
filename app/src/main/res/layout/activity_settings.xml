@@ -61,6 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/toAddBlocks"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
@@ -78,12 +79,18 @@
             android:textSize="20sp"
             android:text="Add block"/>
 
-        <CheckBox
-            android:id="@+id/add_you_block"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/darkBlue"
-            android:paddingEnd="10dp"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_forward_black_36dp"
+                android:paddingEnd="10dp"/>
+
+        <!--        <CheckBox-->
+<!--            android:id="@+id/add_you_block"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:buttonTint="@color/darkBlue"-->
+<!--            android:paddingEnd="10dp"/>-->
 
     </LinearLayout>
 

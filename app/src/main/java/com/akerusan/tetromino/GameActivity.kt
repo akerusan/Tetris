@@ -14,7 +14,7 @@ import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.akerusan.tetromino.adapter.CubeAdapter
-import com.akerusan.tetromino.adapter.swipe.OnSwipeTouchListener
+import com.akerusan.tetromino.common.OnSwipeTouchListener
 import com.akerusan.tetromino.piece.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -47,6 +47,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     private var currentLevel = 0
 
     private var you: Boolean = false
+    private var em: Boolean = false
     private var grid: Boolean = false
     private var swipe: Boolean = false
 
@@ -64,8 +65,11 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     private var mAuth: FirebaseAuth? = null
     private var user: FirebaseUser? = null
 
+    private lateinit var context: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = applicationContext
         adaptToScreen()
 
 //        // Hide the status bar.
@@ -73,7 +77,8 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 //        // Remember that you should never show the action bar if the
 //        // status bar is hidden, so hide that too if necessary.
 //        actionBar?.hide()
-        you = intent.getBooleanExtra("addblock", false)
+        you = intent.getBooleanExtra("addYouBlock", false)
+        em = intent.getBooleanExtra("addEmBlock", false)
 
         swipe = intent.getBooleanExtra("addswipe", false)
         if (swipe){
@@ -126,7 +131,6 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     private fun adaptToScreen(){
         // get device dimensions
         val dm = DisplayMetrics()
-        val context: Context = applicationContext
 
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         windowManager.defaultDisplay.getMetrics(dm)
@@ -180,6 +184,9 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     override fun onClick(v: View?) {
 
         if (v == start) {
+
+            // initialize score in case of retry
+            score = 0
 
             initializeButtons()
 
@@ -296,10 +303,15 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
 
             if (next == 0){
                 // randomly get a number
-                next = if (!you){
-                    (1..7).shuffled().first()
-                } else {
-                    (1..8).shuffled().first()
+                if (!you && !em){
+                    next = (1..7).shuffled().first()
+                } else if (you && em){
+                    next = (1..9).shuffled().first()
+                } else if (you){
+                    next = (1..8).shuffled().first()
+                } else if (em){
+                    val test = ((1..7).plus(9))
+                    next = test.shuffled().first()
                 }
             }
 
@@ -315,10 +327,15 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             timer()
 
             // randomly get a number
-            next = if (!you){
-                (1..7).shuffled().first()
-            } else {
-                (1..8).shuffled().first()
+            if (!you && !em){
+                next = (1..7).shuffled().first()
+            } else if (you && em){
+                next = (1..9).shuffled().first()
+            } else if (you){
+                next = (1..8).shuffled().first()
+            } else if (em){
+                val test = ((1..7).plus(9))
+                next = test.shuffled().first()
             }
             // display the next block on screen
             displayNext(next)
@@ -347,6 +364,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             6 -> PieceZ(pieceList, 4)
             7 -> PieceS(pieceList, 4)
             8 -> PieceU(pieceList, 14)
+            9 -> PieceM(pieceList, 14)
             else -> Piece()
         }
     }
@@ -371,8 +389,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             nextBlock_4.visibility = View.GONE
             nextBlock_5.visibility = View.VISIBLE
         }
-        val mNextBlockAdaptater =
-            CubeAdapter(this, nextPiece)
+        val mNextBlockAdaptater = CubeAdapter(this, nextPiece)
         nextView!!.adapter = mNextBlockAdaptater
     }
 
@@ -382,8 +399,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
             mainBlock.removeBlock(pieceList)
             mainBlock.moveRight(pieceList)
 
-            val mAdapter =
-                CubeAdapter(this, pieceList)
+            val mAdapter = CubeAdapter(this, pieceList)
             gridView!!.adapter = mAdapter
         } else {
             farRight = true
@@ -544,8 +560,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
         mainBlock = Piece()
 
         gridView = game_grid
-        val mAdapter =
-            CubeAdapter(this, pieceList)
+        val mAdapter = CubeAdapter(this, pieceList)
         gridView!!.adapter = mAdapter
     }
 
@@ -680,7 +695,7 @@ open class GameActivity : AppCompatActivity(), View.OnClickListener, View.OnLong
     }
 
     private fun integrateSwipe(){
-        game_grid.setOnTouchListener(object : OnSwipeTouchListener(this) {
+        game_grid.setOnTouchListener(object : OnSwipeTouchListener(context) {
             override fun onClick(x: Int, y: Int) {
                 val halfGridWidth = (game_grid.width / 2)
                 if (x < halfGridWidth){

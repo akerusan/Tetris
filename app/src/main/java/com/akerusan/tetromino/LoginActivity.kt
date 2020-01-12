@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.akerusan.tetromino.common.hideSoftKeyboard
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -18,6 +19,11 @@ open class LoginActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        login_screen.setOnTouchListener { _, _ ->
+            hideSoftKeyboard(this@LoginActivity)
+            false
+        }
 
         FirebaseApp.initializeApp(this)
         mAuth = FirebaseAuth.getInstance()

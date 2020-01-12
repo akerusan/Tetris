@@ -24,6 +24,7 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
     private var highScore = "0"
 
     private var you: Boolean = false
+    private var em: Boolean = false
     private var grid: Boolean = false
     private var swipe: Boolean = false
 
@@ -90,7 +91,8 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
             launchGame -> {
                 val intent = Intent(this, GameActivity::class.java)
                 intent.putExtra("highscore", highScore)
-                intent.putExtra("addblock", you)
+                intent.putExtra("addYouBlock", you)
+                intent.putExtra("addEmBlock", em)
                 intent.putExtra("addgrid", grid)
                 intent.putExtra("addswipe", swipe)
                 startActivity(intent)
@@ -98,7 +100,8 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
             }
             settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
-                intent.putExtra("addblock", you)
+                intent.putExtra("addYouBlock", you)
+                intent.putExtra("addEmBlock", em)
                 intent.putExtra("addgrid", grid)
                 intent.putExtra("addswipe", swipe)
                 startActivityForResult(intent, 0)
@@ -135,10 +138,10 @@ open class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         if (requestCode == 0){
             if (resultCode == Activity.RESULT_OK){
-                you = data!!.getBooleanExtra("addblock", false)
+                you = data!!.getBooleanExtra("addYouBlock", false)
+                em = data.getBooleanExtra("addEmBlock", false)
                 grid = data.getBooleanExtra("addgrid", false)
                 swipe = data.getBooleanExtra("addswipe", false)
-                println(you)
             }
         } else if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){

@@ -51,6 +51,12 @@ class CubeAdapter(private val context: Context, itemList: ArrayList<Piece>) : Ba
         if (mBlock == "es"){
             es(position, view)
         }
+        if (mBlock == "you"){
+            you(position, view)
+        }
+        if (mBlock == "em"){
+            em(position, view)
+        }
 
         return view
     }
@@ -125,6 +131,24 @@ class CubeAdapter(private val context: Context, itemList: ArrayList<Piece>) : Ba
             view.visibility = View.VISIBLE
             val background: ImageView = view.findViewById(R.id.piece)
             background.setBackgroundResource(R.drawable.cube_red)
+        }
+    }
+
+    private fun you(position: Int, view: View){
+
+        if (position == mAxe) {
+            view.visibility = View.VISIBLE
+            val background: ImageView = view.findViewById(R.id.piece)
+            background.setBackgroundResource(R.drawable.cube_red)
+        }
+    }
+
+    private fun em(position: Int, view: View){
+
+        if (position == mAxe) {
+            view.visibility = View.VISIBLE
+            val background: ImageView = view.findViewById(R.id.piece)
+            background.setBackgroundResource(R.drawable.cube_blue)
         }
     }
 

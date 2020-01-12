@@ -30,6 +30,7 @@
         <activity android:name="com.akerusan.tetromino.RegisterActivity"/>
         <activity android:name="com.akerusan.tetromino.RankingActivity"/>
         <activity android:name="com.akerusan.tetromino.SettingsActivity"/>
+        <activity android:name="com.akerusan.tetromino.AddBlocksActivity"/>
 
     </application>
 

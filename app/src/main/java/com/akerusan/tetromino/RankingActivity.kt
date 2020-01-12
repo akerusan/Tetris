@@ -6,13 +6,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.akerusan.tetromino.adapter.RankingAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_game.view.*
 import kotlinx.android.synthetic.main.activity_ranking.*
 
 open class RankingActivity : AppCompatActivity() {
 
     private var db: FirebaseFirestore? = null
-    private val rankInfo = mutableMapOf<Int, String>()
-    private var sortedRank = ArrayList<Pair<Int, String>>()
+    private val rankList = ArrayList<Pair<Int, String>>()
     private var listView: ListView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,20 +26,13 @@ open class RankingActivity : AppCompatActivity() {
                 for (document in result){
                     val username = document.data["username"].toString()
                     val highScore = document.data["high_score"].toString()
-                    rankInfo[highScore.toInt()] = username
+                    rankList.add(Pair(highScore.toInt(), username))
                 }
+                val sortedRank = rankList.sortedWith(compareByDescending{ it.first })
 
-                val sorted = rankInfo.toSortedMap(reverseOrder())
-                for (each in sorted){
-                    sortedRank.add(each.toPair())
-                }
-
-                // display the rannking table
+                // display the ranking table
                 listView = ranking_listview
-                val mAdapter = RankingAdapter(
-                    this,
-                    sortedRank
-                )
+                val mAdapter = RankingAdapter(this, sortedRank)
                 listView!!.adapter = mAdapter
             }
             .addOnFailureListener {

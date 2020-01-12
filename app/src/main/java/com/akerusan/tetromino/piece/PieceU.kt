@@ -44,8 +44,8 @@ class PieceU: Piece {
         if (this.rotation == 0) {
             if (pieceList[cube3].block == "" &&
                 pieceList[cube4].block == "" &&
-                pieceList[cube7].block == "" ) {
-
+                pieceList[cube7].block == "" )
+            {
                 pieceList[cube1] = Piece()
                 pieceList[cube5] = Piece()
                 pieceList[cube8] = Piece()

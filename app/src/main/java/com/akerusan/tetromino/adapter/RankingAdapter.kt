@@ -9,10 +9,10 @@ import android.widget.TextView
 import com.akerusan.tetromino.R
 import java.util.*
 
-class RankingAdapter(private val context: Context, itemList: ArrayList<Pair<Int, String>>) : BaseAdapter()  {
+class RankingAdapter(private val context: Context, itemList: List<Pair<Int, String>>) : BaseAdapter()  {
 
     private var mInflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val items: ArrayList<Pair<Int, String>> = itemList
+    private val items: List<Pair<Int, String>> = itemList
     private val ranking_fields = R.layout.ranking_field
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

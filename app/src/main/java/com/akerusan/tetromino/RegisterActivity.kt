@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.akerusan.tetromino.common.hideSoftKeyboard
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register.*
 
-open class RegisterActivity : AppCompatActivity(), View.OnClickListener{
+open class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mAuth: FirebaseAuth? = null
     private var db: FirebaseFirestore? = null
@@ -19,6 +20,11 @@ open class RegisterActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        register_screen.setOnTouchListener { _, _ ->
+            hideSoftKeyboard(this@RegisterActivity)
+            false
+        }
 
         FirebaseApp.initializeApp(this)
         mAuth = FirebaseAuth.getInstance()

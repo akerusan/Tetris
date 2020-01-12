@@ -71,6 +71,14 @@ class NextPiece : Piece {
                 this.cube5 = 13
                 blockString = "you"
             }
+            9 -> {
+                this.cube1 = 1
+                this.cube2 = 6
+                this.cube3 = 7
+                this.cube4 = 12
+                this.cube5 = 13
+                blockString = "em"
+            }
         }
 
         nextPiece[cube1] = NextPiece(cube1, blockString)
