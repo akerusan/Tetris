@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.akerusan.tetromino"
+        applicationId "com.akerusan.tetrominos"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 9
-        versionName "2.1"
+        versionCode 3
+        versionName "2.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

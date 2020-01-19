@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.akerusan.tetromino">
+        package="com.akerusan.tetrominos">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -17,7 +17,7 @@
             tools:targetApi="p">
 
         <activity
-                android:name="com.akerusan.tetromino.MainActivity">
+                android:name="com.akerusan.tetrominos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,12 +25,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.akerusan.tetromino.GameActivity"/>
-        <activity android:name="com.akerusan.tetromino.LoginActivity"/>
-        <activity android:name="com.akerusan.tetromino.RegisterActivity"/>
-        <activity android:name="com.akerusan.tetromino.RankingActivity"/>
-        <activity android:name="com.akerusan.tetromino.SettingsActivity"/>
-        <activity android:name="com.akerusan.tetromino.AddBlocksActivity"/>
+        <activity android:name="com.akerusan.tetrominos.GameActivity"/>
+        <activity android:name="com.akerusan.tetrominos.GameSwipeActivity"/>
+        <activity android:name="com.akerusan.tetrominos.LoginActivity"/>
+        <activity android:name="com.akerusan.tetrominos.RegisterActivity"/>
+        <activity android:name="com.akerusan.tetrominos.RankingActivity"/>
+        <activity android:name="com.akerusan.tetrominos.SettingsActivity"/>
+        <activity android:name="com.akerusan.tetrominos.AddBlocksActivity"/>
 
     </application>
 

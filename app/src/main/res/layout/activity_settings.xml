@@ -61,6 +61,33 @@
     </LinearLayout>
 
     <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/game_background"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="30dp"
+                android:textColor="@color/darkBlue"
+                android:textSize="20sp"
+                android:text="FullScreen (beta)"/>
+
+        <CheckBox
+                android:id="@+id/add_fullscreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/darkBlue"
+                android:paddingEnd="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/toAddBlocks"
             android:layout_width="match_parent"
             android:layout_height="50dp"

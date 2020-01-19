@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:id="@+id/activity_game"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/blueGray"
+        android:backgroundTint="@color/blue">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <GridView
+                    android:id="@+id/game_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="-1dp"
+                    android:background="@color/blue"
+                    android:numColumns="10">
+            </GridView>
+
+            <TextView
+                    android:id="@+id/swipe_gameOver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/countdown"
+                    android:layout_alignEnd="@+id/countdown"
+                    android:gravity="center"
+                    android:text="@string/game_over"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            <TextView
+                    android:id="@+id/swipe_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/game_grid"
+                    android:layout_alignTop="@+id/game_grid"
+                    android:layout_alignEnd="@+id/game_grid"
+                    android:layout_alignBottom="@id/game_grid"
+                    android:gravity="center"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="60sp"
+                    android:text=""
+                    android:visibility="visible" />
+
+            <Button
+                    android:id="@+id/swipe_start"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/swipe_gameOver"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="85dp"
+                    android:background="@drawable/game_background"
+                    android:gravity="center"
+                    android:text="@string/start"
+                    android:textColor="@color/red"
+                    android:visibility="gone" />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green"
+                        android:textStyle="bold"
+                        android:text="@string/level"/>
+
+                <TextView
+                        android:id="@+id/swipe_level"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/darkBlue"
+                        android:text="@string/zero"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green"
+                        android:textStyle="bold"
+                        android:text="@string/high_score"/>
+
+                <TextView
+                        android:id="@+id/swipe_high_score"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/darkBlue"
+                        android:text="@string/zero"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green"
+                        android:textStyle="bold"
+                        android:text="@string/score"/>
+
+                <TextView
+                        android:id="@+id/swipe_totalScore"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/darkBlue"
+                        android:text="@string/zero"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp">
+
+                    <ImageView
+                            android:id="@+id/swipe_resume"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_pause_circle_outline_black_24dp"
+                            android:visibility="gone"
+                            android:contentDescription="@string/resume_play"/>
+
+                    <ImageView
+                            android:id="@+id/swipe_pause"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_play_circle_outline_black_36dp"
+                            android:visibility="visible"
+                            android:contentDescription="@string/pause_play"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp">
+
+                    <ImageView
+                            android:id="@+id/swipe_volumeOn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_volume_off_black_24dp"
+                            android:visibility="gone"
+                            android:contentDescription="@string/resume_sound"/>
+
+                    <ImageView
+                            android:id="@+id/swipe_volumeOff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_volume_up_black_24dp"
+                            android:visibility="visible"
+                            android:contentDescription="@string/pause_sound"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

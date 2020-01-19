@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:322409118002:android:7f0b694fc73c5dd49a7f2b",
         "android_client_info": {
-          "package_name": "com.akerusan.tetromino"
+          "package_name": "com.akerusan.tetrominos"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "322409118002-1l3l20u0nffiughouv18e0jucc2c5fu1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.akerusan.tetromino",
+            "package_name": "com.akerusan.tetrominos",
             "certificate_hash": "76fba65d333bdb880cad6a9306a1194959413fa3"
           }
         },
